@@ -1,0 +1,614 @@
+/* 디자인 토큰 — 배경 #1E2126(주철), 텍스트 #F2EFE9(초크), 데이터 색은 단일 #4E8FD9 */
+:root {
+  --bg: #1e2126;
+  --surface: #282b31;
+  --surface-2: #33373e;
+  --border: #3a3e45;
+  --text: #f2efe9;
+  --text-dim: #b8b4ac;
+  --muted: #6b6e75;
+  --accent: #e4574b;
+  --data: #4e8fd9;
+  --font-body: "Noto Sans KR", sans-serif;
+  --font-display: "Black Han Sans", "Noto Sans KR", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+html,
+body {
+  margin: 0;
+  background: var(--bg);
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--text);
+  overscroll-behavior-y: none;
+}
+
+button {
+  touch-action: manipulation;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+}
+
+.accent {
+  color: var(--accent);
+}
+
+.btn {
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  font-weight: 700;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* ─── 앱 프레임 ─── */
+.app {
+  min-height: 100vh;
+  min-height: 100dvh;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  padding: calc(20px + env(safe-area-inset-top)) 16px calc(40px + env(safe-area-inset-bottom));
+}
+
+.app--center {
+  align-items: center;
+  justify-content: center;
+}
+
+.loading {
+  opacity: 0.6;
+}
+
+/* ─── 헤더 ─── */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.header-logo {
+  font-size: 24px;
+  letter-spacing: 1px;
+}
+
+.header-tabs {
+  display: flex;
+  gap: 6px;
+}
+
+.tab {
+  padding: 8px 12px;
+  font-size: 13.5px;
+  background: var(--surface);
+  color: var(--text-dim);
+}
+
+.tab--active {
+  background: var(--surface-2);
+  color: var(--text);
+}
+
+/* ─── 홈 화면 추가 안내 배너 ─── */
+.install-hint {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+}
+
+.install-hint-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.install-hint-text b {
+  color: var(--text);
+}
+
+.install-hint-close {
+  margin-left: auto;
+  background: none;
+  color: var(--muted);
+  font-size: 15px;
+  padding: 4px 8px;
+}
+
+/* ─── 드롭존 ─── */
+.dropzone {
+  background: var(--surface);
+  border: 2px dashed var(--border);
+  border-radius: 18px;
+  padding: 30px 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.dropzone--over {
+  border-color: var(--data);
+  background: var(--surface-2);
+}
+
+.dropzone-icon {
+  font-size: 34px;
+}
+
+.dropzone-main {
+  font-size: 15.5px;
+  font-weight: 700;
+}
+
+.dropzone-sub {
+  font-size: 12.5px;
+  color: var(--text-dim);
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.5;
+}
+
+.manual-btn {
+  margin-top: 8px;
+  padding: 11px;
+  font-size: 13.5px;
+  background: var(--surface);
+  color: var(--text-dim);
+}
+
+.privacy-note {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  margin: 10px 0 18px;
+}
+
+/* 샘플 데이터 선택 — 이모지+이름 칩 2열 그리드 */
+.sample-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.sample-btn {
+  flex: 1 1 calc(50% - 4px);
+  min-width: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 10px;
+  font-size: 13.5px;
+  background: var(--surface);
+  color: var(--text-dim);
+}
+
+.sample-emoji {
+  font-size: 16px;
+}
+
+/* 파싱·판별 실패 안내 — 데이터 색으로 강조(오류가 아닌 안내 톤) */
+.dz-error {
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--accent);
+  font-weight: 700;
+  margin-top: 8px;
+}
+
+/* ─── 목록 ─── */
+.list-label {
+  font-size: 12.5px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.empty-hint {
+  text-align: center;
+  color: var(--text-dim);
+  font-size: 14px;
+  line-height: 1.7;
+  padding: 28px 0;
+}
+
+/* ─── 파일 바 ─── */
+.file-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
+}
+
+.file-name {
+  font-weight: 700;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+  min-width: 0;
+}
+
+.file-meta {
+  font-size: 12px;
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
+.file-reset {
+  flex-shrink: 0;
+  padding: 7px 11px;
+  font-size: 12.5px;
+  background: var(--surface-2);
+  color: var(--text-dim);
+}
+
+/* ─── KPI 타일 ─── */
+.kpi-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.kpi {
+  flex: 1;
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px 10px;
+  text-align: center;
+}
+
+.kpi-label {
+  font-size: 12px;
+  color: var(--text-dim);
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.kpi-value {
+  font-size: 24px;
+  line-height: 1.1;
+}
+
+/* ─── 축·값·집계 컨트롤 ─── */
+.ctrl-row {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+
+.ctrl {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.ctrl-label {
+  font-size: 12px;
+  color: var(--text-dim);
+  font-weight: 700;
+}
+
+.ctrl-select {
+  background: var(--surface-2);
+}
+
+.ctrl-chips {
+  display: flex;
+  gap: 6px;
+}
+
+.mode-chip {
+  padding: 8px 14px;
+  font-size: 13.5px;
+  background: var(--surface-2);
+  color: var(--text-dim);
+  border: 1.5px solid transparent;
+  border-radius: 999px;
+}
+
+.mode-chip--on {
+  background: var(--bg);
+  color: var(--text);
+  border-color: var(--border);
+}
+
+/* ─── 차트 카드 ─── */
+.chart-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  margin-bottom: 16px;
+}
+
+.chart-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+.chart-wrap {
+  position: relative;
+}
+
+.chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* SVG 텍스트·선은 fill/stroke로 색을 준다 */
+.chart-label {
+  fill: var(--text-dim);
+  font-size: 11px;
+}
+
+.chart-value {
+  fill: var(--text-dim);
+  font-size: 11px;
+}
+
+.chart-grid {
+  stroke: #3a3e45;
+  stroke-width: 1;
+}
+
+.chart-crosshair {
+  stroke: var(--muted);
+  stroke-width: 1;
+  stroke-dasharray: 3 3;
+}
+
+/* 호버 툴팁 — 카드 하단 정적 배치 */
+.chart-tip {
+  margin-top: 10px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 10px;
+  font-size: 12.5px;
+  color: var(--text);
+}
+
+.chart-tip b {
+  color: var(--data);
+}
+
+/* ─── 표 미리보기 ─── */
+.table-scroll {
+  overflow-x: auto;
+  margin-bottom: 8px;
+}
+
+.preview-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.preview-table th,
+.preview-table td {
+  font-size: 11.5px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+  text-align: left;
+}
+
+.preview-table th {
+  color: var(--text-dim);
+  font-weight: 700;
+  background: var(--surface);
+}
+
+.preview-table td {
+  color: var(--text);
+}
+
+/* ─── 문의 (add-card 공용) ─── */
+.add-card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 18px 16px;
+  margin-bottom: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.add-title {
+  font-size: 19px;
+}
+
+.add-submit {
+  padding: 13px;
+  font-size: 15px;
+  background: var(--accent);
+  color: #fff;
+}
+
+.contact-desc {
+  font-size: 13.5px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.contact-hp {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.contact-result {
+  font-size: 13.5px;
+  font-weight: 700;
+}
+
+.contact-result--ok {
+  color: #57a867;
+}
+
+.contact-result--err {
+  color: var(--accent);
+}
+
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px; /* iOS 자동 확대 방지 */
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--data);
+}
+
+.input--textarea {
+  resize: vertical;
+  min-height: 120px;
+  background: var(--bg);
+}
+
+/* ─── 시리즈 링크 + 교육 카드 ─── */
+.series {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.series-title {
+  font-size: 12.5px;
+  color: var(--muted);
+  text-align: center;
+  margin-bottom: 2px;
+}
+
+.series-item {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 12px 14px;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.series-item-name {
+  font-weight: 700;
+  font-size: 14.5px;
+  flex-shrink: 0;
+}
+
+.series-item-desc {
+  font-size: 12.5px;
+  color: var(--text-dim);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.series-item-arrow {
+  margin-left: auto;
+  color: var(--muted);
+}
+
+.series-repo {
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--muted);
+  text-decoration: none;
+  padding: 6px;
+}
+
+.series-edu {
+  margin-top: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+
+.series-edu-title {
+  font-size: 14px;
+  color: var(--text);
+}
+
+.series-edu a {
+  color: var(--text-dim);
+}
+
+.series-edu a.series-edu-cta {
+  font-weight: 700;
+  color: var(--text);
+}

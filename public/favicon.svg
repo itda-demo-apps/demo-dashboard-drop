@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- 막대 차트 3개 — "CSV를 끌어놓으면 즉석 대시보드", 가장 큰 값은 데이터 색 -->
+  <rect width="100" height="100" rx="22" fill="#1E2126"/>
+  <rect x="26" y="52" width="12" height="24" rx="3" fill="#F2EFE9"/>
+  <rect x="46" y="36" width="12" height="40" rx="3" fill="#F2EFE9"/>
+  <rect x="66" y="24" width="12" height="52" rx="3" fill="#4E8FD9"/>
+</svg>

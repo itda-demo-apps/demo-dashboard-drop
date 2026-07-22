@@ -1,0 +1,10 @@
+node_modules/
+dist/
+dev-dist/
+.env
+.env.*
+.DS_Store
+.vercel/
+.vercel
+.env*
+scripts/.fonts/

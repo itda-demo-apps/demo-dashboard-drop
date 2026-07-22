@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://itda-demo-dashboard-drop.vercel.app/sitemap.xml
