@@ -41,6 +41,15 @@ api/contact.js           # 문의 폼 → Telegram
 scripts/                 # PIL 아이콘/OG/스플래시 (막대 3개 도안, draw_bars)
 ```
 
+## URL 라우팅
+
+`src/router.js`(의존성 없는 history API — `parseLocation`·`navigate`·`useRoute`)가 화면 상태의 진실 소스. `vercel.json`이 SPA 딥링크를 `index.html`로 리라이트한다.
+
+| 경로 | 화면 |
+|---|---|
+| `/` | 대시보드(홈) — 데이터는 메모리라 홈 단일 |
+| `/contact` | 문의 |
+
 ## 핵심 로직
 
 - **csv.js — 인코딩·파싱·집계 정본**: 디코딩은 UTF-8로 먼저 읽고 깨진 문자(`�`) 개수가 0이 아니면 EUC-KR로 재디코딩(엑셀 "CSV로 저장" = CP949 대응) + BOM 제거. 구분자는 첫 줄에서 쉼표/탭/세미콜론 중 최다를 자동 선택. 파서는 따옴표·이스케이프(`""`)·필드 내 개행을 처리. 타입 추론은 컬럼 값의 80% 이상이 날짜면 `date`, 숫자면 `number`, 아니면 `category`(80% 규칙). `aggregate`는 카테고리축이면 값 내림차순 상위 10 + 나머지를 "그 외 N개"로 접고(시리즈를 늘리지 않는다), 날짜축이면 시간순 정렬 후 62건 초과 시 월(YYYY-MM) 단위로 리버킷.
