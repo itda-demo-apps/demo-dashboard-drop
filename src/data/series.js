@@ -41,8 +41,14 @@ export const SERIES = [
   {
     id: "form-box",
     name: "모두의 시트",
-    desc: "양식으로 모으고 시트로 취합 — 서버 없이",
+    desc: "수거함 코드로 모으고 시트·대시보드로 취합",
     url: "https://itda-demo-form-box.vercel.app",
+  },
+  {
+    id: "cook-today",
+    name: "오늘 뭐 해먹지",
+    desc: "재료·기분 말하면 요리 추천 — 온디바이스 AI",
+    url: "https://itda-demo-cook-today.vercel.app",
   },
 ];
 
