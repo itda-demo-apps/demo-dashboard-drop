@@ -38,6 +38,12 @@ export const SERIES = [
     desc: "CSV를 끌어놓으면 즉석 대시보드",
     url: "https://itda-demo-dashboard-drop.vercel.app",
   },
+  {
+    id: "form-box",
+    name: "모두의 시트",
+    desc: "양식으로 모으고 시트로 취합 — 서버 없이",
+    url: "https://itda-demo-form-box.vercel.app",
+  },
 ];
 
 export const REPO_URL = "https://github.com/itda-demo-apps/demo-dashboard-drop";

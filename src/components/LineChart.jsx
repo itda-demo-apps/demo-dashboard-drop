@@ -49,11 +49,15 @@ export default function LineChart({ items, unit }) {
             </text>
           </g>
         ))}
-        {xTickIdx.map((i) => (
-          <text key={i} x={x(i)} y={H - 6} textAnchor="middle" className="chart-label">
-            {items[i].label.slice(5)}
-          </text>
-        ))}
+        {xTickIdx.map((i, k) => {
+          // 양끝 눈금은 viewBox 경계에 라벨이 걸리므로 anchor를 안쪽으로(첫=start, 끝=end), 중간만 middle
+          const anchor = k === 0 ? "start" : k === xTickIdx.length - 1 ? "end" : "middle";
+          return (
+            <text key={i} x={x(i)} y={H - 6} textAnchor={anchor} className="chart-label">
+              {items[i].label.slice(5)}
+            </text>
+          );
+        })}
         <path d={areaPath} fill="rgba(78, 143, 217, 0.15)" stroke="none" />
         <path d={path} fill="none" stroke={LINE_COLOR} strokeWidth="2" strokeLinejoin="round" />
         {hover !== null && (
