@@ -17,6 +17,8 @@ export default function LineChart({ items, unit }) {
   const x = (i) => PAD.l + (items.length === 1 ? plotW / 2 : (i / (items.length - 1)) * plotW);
   const y = (v) => PAD.t + plotH - (v / max) * plotH;
   const path = items.map((it, i) => `${i === 0 ? "M" : "L"}${x(i).toFixed(1)},${y(it.value).toFixed(1)}`).join(" ");
+  const baseline = PAD.t + plotH;
+  const areaPath = `${path} L${x(items.length - 1).toFixed(1)},${baseline.toFixed(1)} L${x(0).toFixed(1)},${baseline.toFixed(1)} Z`;
 
   const onMove = (e) => {
     const rect = svgRef.current.getBoundingClientRect();
@@ -52,6 +54,7 @@ export default function LineChart({ items, unit }) {
             {items[i].label.slice(5)}
           </text>
         ))}
+        <path d={areaPath} fill="rgba(78, 143, 217, 0.15)" stroke="none" />
         <path d={path} fill="none" stroke={LINE_COLOR} strokeWidth="2" strokeLinejoin="round" />
         {hover !== null && (
           <g>

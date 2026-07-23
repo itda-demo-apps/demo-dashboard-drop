@@ -6,7 +6,7 @@ export default function Header({ view, setView }) {
   return (
     <div className="header">
       <div className="display header-logo">
-        대시보드 <span className="accent">드롭</span>
+        모두의 <span className="accent">대시보드</span>
       </div>
       <nav className="header-tabs">
         {tabs.map((t) => (

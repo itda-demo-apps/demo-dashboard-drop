@@ -10,8 +10,8 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["apple-touch-icon.png", "favicon.svg"],
       manifest: {
-        name: "대시보드 드롭",
-        short_name: "대시보드",
+        name: "모두의 대시보드",
+        short_name: "모두의 대시보드",
         description: "CSV를 끌어다 놓으면 즉석 대시보드 — 데이터는 내 기기에만",
         lang: "ko",
         display: "standalone",

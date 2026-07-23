@@ -9,6 +9,8 @@
   --muted: #6b6e75;
   --accent: #e4574b;
   --data: #4e8fd9;
+  --warn: #e8b93e;
+  --ok: #57a867;
   --font-body: "Noto Sans KR", sans-serif;
   --font-display: "Black Han Sans", "Noto Sans KR", sans-serif;
 }
@@ -289,21 +291,26 @@ button {
   color: var(--text-dim);
 }
 
-/* ─── KPI 타일 ─── */
+/* ─── KPI 타일 (모바일 2×2, 넓은 화면 1행) ─── */
 .kpi-row {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 12px;
 }
 
 .kpi {
-  flex: 1;
+  flex: 1 1 calc(50% - 4px);
   min-width: 0;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 14px 10px;
   text-align: center;
+}
+
+.kpi--warn {
+  border-color: var(--warn);
 }
 
 .kpi-label {
@@ -318,6 +325,48 @@ button {
 .kpi-value {
   font-size: 24px;
   line-height: 1.1;
+}
+
+.kpi-sub {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+/* ─── 필터 행 ─── */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.filter {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1 1 calc(50% - 4px);
+  min-width: 0;
+}
+
+.filter-label {
+  font-size: 12px;
+  color: var(--text-dim);
+  font-weight: 700;
+}
+
+.filter-select {
+  background: var(--surface-2);
+  padding: 10px 12px;
+}
+
+.filter-reset {
+  padding: 10px 14px;
+  font-size: 13px;
+  background: var(--surface);
+  color: var(--text-dim);
+  flex-shrink: 0;
 }
 
 /* ─── 축·값·집계 컨트롤 ─── */
@@ -368,13 +417,21 @@ button {
   border-color: var(--border);
 }
 
+/* ─── 자동 차트 그리드 (모바일 세로 스택, 넓은 화면 2열) ─── */
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
 /* ─── 차트 카드 ─── */
 .chart-card {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 16px;
-  margin-bottom: 16px;
+  min-width: 0;
 }
 
 .chart-title {
@@ -459,6 +516,109 @@ button {
 
 .preview-table td {
   color: var(--text);
+}
+
+/* 상태 배지 (pill) — 색 + 텍스트로 상태를 이중 인코딩 */
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.badge--ok {
+  background: rgba(87, 168, 103, 0.18);
+  color: var(--ok);
+}
+
+.badge--warn {
+  background: rgba(232, 185, 62, 0.18);
+  color: var(--warn);
+}
+
+.badge--bad {
+  background: rgba(228, 87, 75, 0.18);
+  color: var(--accent);
+}
+
+/* ─── 도넛 차트 ─── */
+.donut-layout {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.donut-svg {
+  width: 150px;
+  height: 150px;
+  flex-shrink: 0;
+}
+
+.donut-center-num {
+  fill: var(--text);
+  font-size: 15px;
+  font-family: var(--font-display);
+}
+
+.donut-center-label {
+  fill: var(--text-dim);
+  font-size: 7px;
+}
+
+.donut-legend {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 120px;
+}
+
+.donut-leg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  cursor: pointer;
+}
+
+.donut-leg--on {
+  color: var(--text);
+}
+
+.donut-leg-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.donut-leg-pct {
+  font-weight: 700;
+  color: var(--text);
+  flex-shrink: 0;
+}
+
+/* ─── 넓은 화면: 프레임 확장 + KPI 1행 + 차트 2열 ─── */
+@media (min-width: 800px) {
+  .app {
+    max-width: 960px;
+  }
+  .kpi {
+    flex: 1 1 0;
+  }
+  .charts-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  /* 차트가 홀수 개면 마지막 카드를 전폭으로 — 빈 칸 방지.
+     마지막이 도넛이면 .donut-layout(flex 가로, 좁으면 세로 폴백)이 넓게 배치된다. */
+  .charts-grid > .chart-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
 }
 
 /* ─── 문의 (add-card 공용) ─── */

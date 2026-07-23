@@ -34,7 +34,7 @@ export const SERIES = [
   },
   {
     id: "dashboard-drop",
-    name: "대시보드 드롭",
+    name: "모두의 대시보드",
     desc: "CSV를 끌어놓으면 즉석 대시보드",
     url: "https://itda-demo-dashboard-drop.vercel.app",
   },

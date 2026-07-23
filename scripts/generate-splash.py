@@ -19,6 +19,6 @@ for w, h in SIZES:
     icon = int(min(w, h) * 0.36)
     draw_bars(d, w / 2, h * 0.44, icon)
     font = load_font(int(min(w, h) * 0.08))
-    draw_text_center(d, w / 2, h * 0.44 + icon * 0.82, "대시보드 드롭", font, CHALK)
+    draw_text_center(d, w / 2, h * 0.44 + icon * 0.82, "모두의 대시보드", font, CHALK)
     img.save(f"public/splash/{w}x{h}.png")
     print(f"public/splash/{w}x{h}.png")

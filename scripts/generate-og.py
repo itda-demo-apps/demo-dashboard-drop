@@ -10,7 +10,7 @@ img = Image.new("RGB", (W * SS, H * SS), BG)
 d = ImageDraw.Draw(img)
 
 draw_bars(d, 950 * SS, 300 * SS, 340 * SS)
-d.text((90 * SS, 160 * SS), "대시보드 드롭", font=load_font(100 * SS), fill=CHALK)
+d.text((90 * SS, 160 * SS), "모두의 대시보드", font=load_font(100 * SS), fill=CHALK)
 sub = load_font(42 * SS)
 d.text((94 * SS, 310 * SS), "CSV 끌어놓으면 즉석 대시보드", font=sub, fill=DIM)
 d.text((94 * SS, 372 * SS), "KPI·순위·시계열 차트 자동 생성", font=sub, fill=DIM)

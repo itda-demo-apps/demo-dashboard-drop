@@ -76,10 +76,26 @@ export function toDate(v) {
   return isNaN(d.getTime()) ? null : d;
 }
 
-// 컬럼 타입 추론: 값의 80% 이상이 숫자/날짜면 해당 타입, 아니면 카테고리
+// 식별자(순번·번호·id) 컬럼 감지 — 집계·차트 대상에서 제외하기 위함
+const ID_NAME_RE = /(순번|일련번호|연번|행번호|번호|no|index|idx|seq|id)\s*\.?\s*$/i;
+
+function isIdentifierColumn(name, rawValues) {
+  if (ID_NAME_RE.test(name.trim())) return true;
+  // 값이 1씩 증가하는 연속 정수열(행 순서 기준) — 순번 컬럼의 전형
+  const nums = rawValues.map((v) => toNumber(v));
+  if (nums.length < 2 || nums.some((x) => isNaN(x) || !Number.isInteger(x))) return false;
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] - nums[i - 1] !== 1) return false;
+  }
+  return true;
+}
+
+// 컬럼 타입 추론: 값의 80% 이상이 숫자/날짜면 해당 타입, 아니면 카테고리.
+// 숫자 컬럼 중 식별자(순번·번호 등)는 identifier:true 로 표시해 값·집계·차트·축 후보에서 제외한다.
 export function inferColumns(headers, rows) {
   return headers.map((name, idx) => {
-    const values = rows.map((r) => r[idx]).filter((v) => String(v ?? "").trim() !== "");
+    const raw = rows.map((r) => r[idx]);
+    const values = raw.filter((v) => String(v ?? "").trim() !== "");
     const n = values.length || 1;
     const numeric = values.filter((v) => !isNaN(toNumber(v))).length;
     const dates = values.filter((v) => toDate(v)).length;
@@ -87,7 +103,8 @@ export function inferColumns(headers, rows) {
     if (dates / n >= 0.8) type = "date";
     else if (numeric / n >= 0.8) type = "number";
     const unique = new Set(values.map((v) => String(v).trim())).size;
-    return { name, idx, type, unique };
+    const identifier = type === "number" && isIdentifierColumn(name, raw);
+    return { name, idx, type, unique, identifier };
   });
 }
 
