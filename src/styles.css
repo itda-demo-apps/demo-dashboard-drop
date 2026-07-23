@@ -107,6 +107,16 @@ button {
   letter-spacing: 1px;
 }
 
+/* 로고를 홈 이동 버튼으로 — 버튼 기본 배경·패딩·색·정렬만 리셋(시각은 로고와 동일) */
+.header-logo-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  color: var(--text);
+}
+
 .header-tabs {
   display: flex;
   gap: 6px;

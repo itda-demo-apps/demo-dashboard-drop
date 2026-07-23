@@ -1,3 +1,5 @@
+import { navigate } from "../router";
+
 export default function Header({ view, setView }) {
   const tabs = [
     { id: "home", label: "대시보드" },
@@ -5,9 +7,9 @@ export default function Header({ view, setView }) {
   ];
   return (
     <div className="header">
-      <div className="display header-logo">
+      <button className="btn header-logo-btn display header-logo" onClick={() => navigate("/")}>
         모두의 <span className="accent">대시보드</span>
-      </div>
+      </button>
       <nav className="header-tabs">
         {tabs.map((t) => (
           <button
